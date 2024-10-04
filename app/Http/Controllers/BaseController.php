@@ -9,10 +9,10 @@ class BaseController extends Controller
     public function sendResponse($result, $message, $code = 200)
     {
         $response = [
+            'code' => $code,
             'status' => true,
             'data' => $result,
             'message' => $message,
-            'code' => $code
         ];
 
         return response()->json($response, $code);
@@ -21,9 +21,9 @@ class BaseController extends Controller
     public function sendError($error, $errorMessages = [], $code = 500)
     {
         $response = [
+            'code' => $code,
             'success' => false,
             'message' => $error,
-            'code' => $code
         ];
 
         if(!empty($errorMessages)) {
