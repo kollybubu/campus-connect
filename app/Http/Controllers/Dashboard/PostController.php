@@ -53,4 +53,32 @@ class PostController extends BaseController
         ]);
         return $this->sendResponse($post, 'product Created Successfully', 201);
     }
+    public function update(Request $request, string $id)
+    {
+        $validator = Validator::make($request->all(), [
+            'title' => 'required|string',
+            'content' => 'required|string',
+            'image' => 'required|image',
+        ]);
+        if ($validator->fails()) {
+            return $this->sendError('Validation Error', $validator->errors());
+        }
+        $Post = Post::find($id);
+        if(!$Post) {
+            return $this->sendError("Post not Found!", null, 404);
+        }
+        $Post->update($request->all());
+        return $this->sendResponse($Post, 'Post Updated Successfully', 200);
+    }
+
+    public function destory(string $id)
+    {
+        $Post = Post::where('id', $id)->first();
+        if(!$Post){
+            return $this->sendError("Post not found", null, 404);
+
+        }
+        $Post->delete();
+        return $this->sendResponse($Post, "Post Destory Successfully");
+    }
 }
