@@ -36,27 +36,29 @@ Route::prefix('dashboards')->name('dashboards.')->group(function() {
 
     // User Crud
     Route::prefix('users')->name('users.')->group(function() {
-        Route::post('/register', [UserController::class, 'store'])->name('store');
+        Route::post('/register', [UserController::class, 'store']);
+        Route::post('/update', [UserController::class, 'update']);
     });
 
     // Teacher ru
     Route::prefix('teachers')->name('teachers.')->group(function() {
-        Route::get('/', [TeacherController::class, 'index'])->name('index');
+        Route::get('/', [TeacherController::class, 'index']);
     });
 
     // Student ru
     Route::prefix('students')->name('students.')->group(function() {
-        Route::get('/', [StudentController::class, 'index'])->name('index');
+        Route::get('/', [StudentController::class, 'index']);
     });
 
     // Category Crud
     Route::prefix('categories')->name('categories.')->group(function() {
-        Route::get('/', [CategoryController::class, 'index'])->name('index');
+        Route::get('/', [CategoryController::class, 'index']);
     });
 
     // Post Crud
     Route::prefix('posts')->name('posts.')->group(function() {
-        Route::get('/', [PostController::class, 'index'])->name('index');
+        Route::post('/create', [PostController::class, 'store']);
+
     });
 
     // Project User Crud
