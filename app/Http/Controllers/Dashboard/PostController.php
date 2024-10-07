@@ -34,9 +34,9 @@ class PostController extends BaseController
             'category_id' => 'required',
             'user_id' => 'required',
         ]);
-        if ($validator->fails()){
-            return $this->sendError('validation Error', $validator->errors(), 422);
-        }
+            if ($validator->fails()){
+                return $this->sendError('validation Error', $validator->errors(), 422);
+            }
 
         if($request->hasFile('image')){
             $imageName= time() . '.' . $request->image->extension();
@@ -55,12 +55,13 @@ class PostController extends BaseController
     }
     public function show(string $id)
     {
-        $data = Post::find($id);
+        $data = Post::where('id',$id)->get();
         if (!$data) {
-            return $this->error('Post Not Found!', null, 404);
+            return $this->sendError('Post Not Found!', null, 404);
 
         }
-        return $this->sendResponse($data, 'Product Show successfully', 200);
+        $posts = PostResource::collection($data);
+        return $this->sendResponse($posts, 'Posts Retrived Successfully!');
     }
     
     public function update(Request $request, string $id)
