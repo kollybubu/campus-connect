@@ -46,7 +46,7 @@ class CategoryController extends BaseController
         if ($validator->fails()) {
             return $this->sendError('Validation Error', $validator->errors());
         }
-        $category = $this->categoryRepository->update();
-        return $this->sendResponse($category, 'category updated successfully', 200);
+    //     $category = $this->categoryRepository->update(  );
+    //     return $this->sendResponse($category, 'category updated successfully', 200);
     }
 }
