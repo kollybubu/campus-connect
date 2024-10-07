@@ -53,10 +53,12 @@ Route::prefix('dashboards')->name('dashboards.')->group(function() {
     // Category Crud
     Route::prefix('categories')->name('categories.')->group(function() {
         Route::get('/', [CategoryController::class, 'index']);
+        Route::post('/', [CategoryController::class, 'store']);
     });
 
     // Post Crud
     Route::prefix('posts')->name('posts.')->group(function() {
+        Route::get('/', [PostController::class, 'index']);
         Route::post('/create', [PostController::class, 'store']);
         Route::delete('/delete/{id}', [PostController::class, 'destory'])->name('posts.destroy');
         Route::post('/posts/{id}/update', [PostController::class, 'update'])->name('posts.update');
