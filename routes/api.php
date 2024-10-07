@@ -60,6 +60,7 @@ Route::prefix('dashboards')->name('dashboards.')->group(function() {
         Route::post('/create', [PostController::class, 'store']);
         Route::delete('/delete/{id}', [PostController::class, 'destory'])->name('posts.destroy');
         Route::post('/posts/{id}/update', [PostController::class, 'update'])->name('posts.update');
+        Route::get('/posts/{id}/show', [PostController::class, 'show']);
 
     });
 
