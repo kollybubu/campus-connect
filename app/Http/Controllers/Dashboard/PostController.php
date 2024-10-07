@@ -61,7 +61,7 @@ class PostController extends BaseController
 
         }
         $posts = PostResource::collection($data);
-        return $this->sendResponse($posts, 'Posts Retrived Successfully!');
+        return $this-> sendResponse($posts, 'Posts Retrived Successfully!');
     }
     
     public function update(Request $request, string $id)
