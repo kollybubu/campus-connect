@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Category extends Model
 {
     public $fillable = [
-        'name', 'description',
+        'name',
     ];
     use HasFactory;
     public function post()
