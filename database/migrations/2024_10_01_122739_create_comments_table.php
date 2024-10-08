@@ -16,7 +16,6 @@ return new class extends Migration
             $table->text('comment');
             $table->integer('user_id');
             $table->integer('post_id');
-            $table->integer('comment_id')->nullable();
             $table->timestamps();
         });
     }
