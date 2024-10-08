@@ -99,4 +99,11 @@ class PostController extends BaseController
 
         return $this->sendResponse($post, "Post Retrieved Successfully", 200);
     }
+    public function postByCategoryId()
+    {
+
+        $posts = Post::where('category_id', 3)->get();
+        return $this->sendResponse($posts, 'Posts retrieved successfully.');
+    }
+    
 }

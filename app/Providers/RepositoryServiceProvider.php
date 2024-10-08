@@ -16,8 +16,6 @@ use App\Repositories\Project\ProjectRepositoryInterface;
 use App\Repositories\Category\CategoryRepositoryInterface;
 use App\Repositories\Comment\CommentRepository;
 use App\Repositories\Comment\CommentRepositoryInterface;
-use App\Repositories\Event\EventRepository;
-use App\Repositories\Event\EventRepositoryInterface;
 use App\Repositories\Resource\ResourceRepositoryInterface;
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -41,7 +39,6 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->singleton(CourseRepositoryInterface::class, CourseRepository::class);
         $this->app->singleton(ProjectRepositoryInterface::class, ProjectRepository::class);
         $this->app->singleton(ResourceRepositoryInterface::class, ResourceRepository::class);
-        $this->app->singleton(EventRepositoryInterface::class, EventRepository::class);
         $this->app->singleton(CommentRepositoryInterface::class, CommentRepository::class);
     }
 }

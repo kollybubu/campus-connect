@@ -8,7 +8,6 @@ use App\Http\Controllers\Dashboard\PostController;
 use App\Http\Controllers\Dashboard\StudentController;
 use App\Http\Controllers\Dashboard\TeacherController;
 use App\Http\Controllers\Dashboard\CategoryController;
-use App\Http\Controllers\Dashboard\EventController;
 use App\Http\Controllers\Dashboard\ResourceController;
 use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\Faculty\CourseController;
@@ -32,7 +31,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/login', [AuthController::class, 'login'])->name('auth.login');
 
 // For Admin
-Route::prefix('dashboards')->name('dashboards.')->group(function() {
 
     // User Crud
     Route::prefix('users')->name('users.')->group(function() {
@@ -67,10 +65,7 @@ Route::prefix('dashboards')->name('dashboards.')->group(function() {
     });
 
     // Event Crud
-    Route::prefix('events')->name('events.')->group(function() {
-        Route::get('/', [EventController::class, 'index'])->name('index');
-    });
-});
+ 
 
 // For Teacher
 Route::prefix('faculties')->name('faculties.')->group(function() {
@@ -97,13 +92,16 @@ Route::group(['middleware' => 'auth:sanctum'], function (){
     Route::delete('/posts/{id}/destory', [PostController::class, 'destory'])->name('posts.destroy');
     Route::post('/posts/{id}/update', [PostController::class, 'update'])->name('posts.update');
     Route::get('/posts/{id}/show', [PostController::class, 'show']);
+    Route::get('/user-posts', [PostController::class, 'postByUserId']);
+    Route::get('/event', [PostController::class, 'postByCategoryId']);
+
 
     Route::get('/comment', [CommentController::class, 'index'])->name('index');
     Route::post('/commentC', [CommentController::class, 'store']);
     Route::get('/commentS/{id}/show', [CommentController::class, 'show']);
     Route::delete('/commentD/{id}/destory', [CommentController::class, 'destory']);
 
-    Route::get('/user-posts', [PostController::class, 'postByUserId']);
+    
 });
 
 // Teacher Crud

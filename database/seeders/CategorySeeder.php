@@ -15,19 +15,13 @@ class CategorySeeder extends Seeder
     {
         $categories = [
             [
-                'name' => 'Technology',
-            ],
-            [
                 'name' => 'Education',
             ],
             [
-                'name' => 'Health & Wellness',
-            ],
-            [
-                'name' => 'Business',
-            ],
-            [
                 'name' => 'Entertainment',
+            ],
+            [
+                'name' => 'Event',
             ],
         ];
 
