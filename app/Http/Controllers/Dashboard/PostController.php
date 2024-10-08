@@ -8,6 +8,7 @@ use App\Http\Resources\PostResource;
 use App\Models\Post;
 use App\Repositories\Post\PostRepositoryInterface;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class PostController extends BaseController
@@ -69,7 +70,6 @@ class PostController extends BaseController
         $validator = Validator::make($request->all(), [
             'title' => 'required|string',
             'content' => 'required|string',
-            'image' => 'required|image',
         ]);
         if ($validator->fails()) {
             return $this->sendError('Validation Error', $validator->errors());
@@ -91,5 +91,12 @@ class PostController extends BaseController
         }
         $Post->delete();
         return $this->sendResponse($Post, "Post Destory Successfully");
+    }
+
+    public function postByUserId(Request $request)
+    {
+        $post = Post::where('user_id', Auth::user()->id)->get();
+
+        return $this->sendResponse($post, "Post Retrieved Successfully", 200);
     }
 }

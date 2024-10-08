@@ -57,15 +57,7 @@ Route::prefix('dashboards')->name('dashboards.')->group(function() {
     });
 
     // Post Crud
-    Route::prefix('posts')->name('posts.')->group(function() {
-        Route::get('/', [PostController::class, 'index']);
-        Route::post('/create', [PostController::class, 'store']);
-        Route::delete('/delete/{id}', [PostController::class, 'destory'])->name('posts.destroy');
-        Route::post('/posts/{id}/update', [PostController::class, 'update'])->name('posts.update');
-        Route::get('/posts/{id}/show', [PostController::class, 'show']);
-
-    });
-
+      
     // Project User Crud
 
 
@@ -97,8 +89,21 @@ Route::prefix('faculties')->name('faculties.')->group(function() {
 });
 
 // Comment Crud
-Route::prefix('comments')->name('comments.')->group(function() {
-    Route::get('/', [CommentController::class, 'index'])->name('index');
+
+
+Route::group(['middleware' => 'auth:sanctum'], function (){
+    Route::get('/posts', [PostController::class, 'index']);
+    Route::post('/posts', [PostController::class, 'store']);
+    Route::delete('/posts/{id}/destory', [PostController::class, 'destory'])->name('posts.destroy');
+    Route::post('/posts/{id}/update', [PostController::class, 'update'])->name('posts.update');
+    Route::get('/posts/{id}/show', [PostController::class, 'show']);
+
+    Route::get('/comment', [CommentController::class, 'index'])->name('index');
+    Route::post('/commentC', [CommentController::class, 'store']);
+    Route::get('/commentS/{id}/show', [CommentController::class, 'show']);
+    Route::delete('/commentD/{id}/destory', [CommentController::class, 'destory']);
+
+    Route::get('/user-posts', [PostController::class, 'postByUserId']);
 });
 
 // Teacher Crud
