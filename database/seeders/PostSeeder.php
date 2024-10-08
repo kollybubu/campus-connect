@@ -49,6 +49,20 @@ class PostSeeder extends Seeder
                 'category_id' => 5, // Entertainment
                 'user_id' => 1, // Admin user
             ],
+            [
+                'title' => 'Upcoming Entertainment Events in 2024',
+                'content' => 'A list of major entertainment events, festivals, and releases to look forward to in 2024.',
+                'image' => 'entertainment_events_2024.jpg',
+                'category_id' => 6, // Entertainment
+                'user_id' => 1, // Admin user
+            ],
+            [
+                'title' => 'Upcoming Entertainment Events in 2024',
+                'content' => 'A list of major entertainment events, festivals, and releases to look forward to in 2024.',
+                'image' => 'entertainment_events_2024.jpg',
+                'category_id' => 6, // Entertainment
+                'user_id' => 1, // Admin user
+            ],
         ];
 
         foreach($posts as $post)
