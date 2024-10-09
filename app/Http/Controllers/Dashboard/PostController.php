@@ -49,10 +49,10 @@ class PostController extends BaseController
             'title' => $request->title,
             'content' => $request->content,
             'image' => $imageName,
-            'category_id' => $request->category_id,  
+            'category_id' => $request->user_id != 1 ? 2 : $request->category_id,  
             'user_id' => $request->user_id,
-
         ]);
+
         return $this->sendResponse($post, 'product Created Successfully', 201);
     }
     public function show(string $id)
