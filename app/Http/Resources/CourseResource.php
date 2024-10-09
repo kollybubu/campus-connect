@@ -17,7 +17,7 @@ class CourseResource extends JsonResource
         return [
             'name' => $this->name,
             'description' => $this->description,
-            'image' => asset('PostImage/' . $this->image),
+            'image' => asset('courseimage/' . $this->image),
             'created_by' => $this->user->name
         ];
     }
