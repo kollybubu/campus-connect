@@ -90,6 +90,9 @@ class PostController extends BaseController
             return $this->sendError("Post not found", null, 404);
 
         }
+        $Post->comments()->delete();
+
+
         $Post->delete();
         return $this->sendResponse($Post, "Post Destory Successfully");
     }
