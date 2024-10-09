@@ -10,6 +10,7 @@ use App\Repositories\Post\PostRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use PhpParser\Node\NullableType;
 
 class PostController extends BaseController
 {
@@ -32,7 +33,7 @@ class PostController extends BaseController
             'title' => 'required|string',
             'content' => 'required|string',
             'image' => 'required|image',
-            'category_id' => 'required',
+            'category_id' => 'nullable|integer',
             'user_id' => 'required',
         ]);
             if ($validator->fails()){
@@ -48,7 +49,7 @@ class PostController extends BaseController
             'title' => $request->title,
             'content' => $request->content,
             'image' => $imageName,
-            'category_id' => $request->category_id,
+            'category_id' => $request->category_id,  
             'user_id' => $request->user_id,
 
         ]);
