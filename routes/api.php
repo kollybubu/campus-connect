@@ -77,10 +77,6 @@ Route::prefix('faculties')->name('faculties.')->group(function() {
         Route::get('/category/{id}', [CourseController::class, 'showCourseWithCategory'])->name('showCourseWithCategory');
     });
 
-    // Project Crud
-    Route::prefix('projects')->name('projects.')->group(function() {
-        Route::get('/', [ProjectController::class, 'index'])->name('index');
-    });
 });
 
 // Comment Crud

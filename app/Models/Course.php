@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Course extends Model
 {
+    public $fillable = [
+        'name', 'description', 'image', 'user_id', 'category_id'
+    ];
     use HasFactory;
 
     public function user()

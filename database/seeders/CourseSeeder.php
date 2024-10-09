@@ -15,45 +15,23 @@ class CourseSeeder extends Seeder
     {
         $courses = [
             [
-                'name' => 'Introduction to Programming',
-                'description' => 'A beginner-friendly course covering the fundamentals of programming using Python.',
+                'name' => 'PHP',
+                'description' => 'PHP is a self-referentially acronym for PHP: Hypertext Preprocessor. Original it supposedly meant personal home page. It is an open source, server-side, HTML embedded scripting language used to create dynamic Web pages.',
                 'image' => 'programming_intro.jpg',
-                'user_id' => 2, // Faculty user
+                'user_id' => 1, // Faculty user
                 'category_id' => 1, // Replace with appropriate category ID
             ],
             [
-                'name' => 'Web Development Bootcamp',
-                'description' => 'An intensive course designed to teach you full-stack web development with HTML, CSS, JavaScript, and more.',
+                'name' => 'Java',
+                'description' => 'Java is a multi-platform, object-oriented, and network-centric language that can be used as a platform in itself. It is a fast, secure, reliable programming language for coding everything from mobile apps and enterprise software to big data applications and server-side technologies.',
                 'image' => 'web_development_bootcamp.jpg',
-                'user_id' => 3, // Faculty user
+                'user_id' => 1, // Faculty user
                 'category_id' => 2, // Replace with appropriate category ID
             ],
-            [
-                'name' => 'Data Science Fundamentals',
-                'description' => 'Learn the basics of data science, including data analysis, visualization, and machine learning techniques.',
-                'image' => 'data_science_fundamentals.jpg',
-                'user_id' => 4, // Faculty user
-                'category_id' => 3, // Replace with appropriate category ID
-            ],
-            [
-                'name' => 'Digital Marketing Strategies',
-                'description' => 'Explore effective digital marketing strategies and tools to boost your online presence.',
-                'image' => 'digital_marketing.jpg',
-                'user_id' => 5, // Faculty user
-                'category_id' => 4, // Replace with appropriate category ID
-            ],
-            [
-                'name' => 'Introduction to Psychology',
-                'description' => 'An overview of psychological principles and theories, focusing on human behavior and mental processes.',
-                'image' => 'psychology_intro.jpg',
-                'user_id' => 6, // Faculty user
-                'category_id' => 5, // Replace with appropriate category ID
-            ],
         ];
-        
-        
-        foreach($courses as $course)
-        {
+
+
+        foreach ($courses as $course) {
             Course::create($course);
         }
     }
