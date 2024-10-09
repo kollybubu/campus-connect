@@ -27,7 +27,7 @@ use App\Http\Controllers\Faculty\ProjectController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-
+Route::get('/event', [PostController::class, 'postByCategoryId']);
 Route::post('/login', [AuthController::class, 'login'])->name('auth.login');
 
 // For Admin
@@ -89,7 +89,7 @@ Route::group(['middleware' => 'auth:sanctum'], function (){
     Route::post('/posts/{id}/update', [PostController::class, 'update'])->name('posts.update');
     Route::get('/posts/{id}/show', [PostController::class, 'show']);
     Route::get('/user-posts', [PostController::class, 'postByUserId']);
-    Route::get('/event', [PostController::class, 'postByCategoryId']);
+
 
 
     Route::get('/comment', [CommentController::class, 'index'])->name('index');
