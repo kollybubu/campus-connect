@@ -28,7 +28,7 @@ Route::get('/event', [PostController::class, 'postByCategoryId']);
 Route::post('/login', [AuthController::class, 'login'])->name('auth.login');
 
 // For Admin
-
+Route::get('/event-posts', [PostController::class, 'postBytype']);
     // User Crud
     Route::prefix('users')->name('users.')->group(function() {
         
@@ -98,7 +98,6 @@ Route::group(['middleware' => 'auth:sanctum'], function (){
     Route::post('/posts/{id}/update', [PostController::class, 'update'])->name('posts.update');
     Route::get('/posts/{id}/show', [PostController::class, 'show']);
     Route::get('/user-posts', [PostController::class, 'postByUserId']);
-    Route::get('/event-posts', [PostController::class, 'postBytype']);
 
 
 
