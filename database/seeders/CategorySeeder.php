@@ -21,7 +21,10 @@ class CategorySeeder extends Seeder
                 'name' => 'Entertainment',
             ],
             [
-                'name' => 'Event',
+                'name' => 'Health',
+            ],
+            [
+                'name' => 'Sport',
             ],
         ];
 

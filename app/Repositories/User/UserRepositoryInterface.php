@@ -3,6 +3,6 @@
 namespace App\Repositories\User;
 
 interface UserRepositoryInterface {
-    public function index($role);
+    public function index();
     public function store($data);
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CategoryResource;
+use App\Models\Category;
 use App\Repositories\Category\CategoryRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -28,25 +29,49 @@ class CategoryController extends BaseController
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string',
-            'description' => 'required|string',
         ]);
         if ($validator->fails()){
-            return $this->sendError('validation Error', $validator->errors(), 422);
+            return $this->sendError('validation Error', $validator->errors(), 404);
         }
         $category = $this->categoryRepository->store($request);
 
-        return $this->sendResponse($category, 'product Created Successfully', 201);
+        return $this->sendResponse($category, 'product Created Successfully', 200);
     }
-    public function update(Request $request)
+    public function update(Request $request, string $id)
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string',
-            'description' => 'required|string',
         ]);
         if ($validator->fails()) {
             return $this->sendError('Validation Error', $validator->errors());
         }
-    //     $category = $this->categoryRepository->update(  );
-    //     return $this->sendResponse($category, 'category updated successfully', 200);
+        $Category = Category::find($id);
+        if(!$Category) {
+            return $this->sendError("Category not Found!", null, 404);
+        }
+        $Category->update($request->all());
+        return $this->sendResponse($Category, 'Category Updated Successfully', 200);
     }
+
+    public function show(string $id)
+    {
+        $data = Category::where('id',$id)->get();
+        if (!$data) {
+            return $this->sendError('Category Not Found!', null, 404);
+
+        }
+        $Category = CategoryResource::collection($data);
+        return $this-> sendResponse($Category, 'Category Retrived Successfully!');
+    }
+    public function destory(string $id)
+    {
+        $Category = Category::where('id', $id)->first();
+        if(!$Category){
+            return $this->sendError("Category not found", null, 404);
+
+        }
+        $Category->delete();
+        return $this->sendResponse($Category, "Category Destory Successfully");
+    }
+
 }

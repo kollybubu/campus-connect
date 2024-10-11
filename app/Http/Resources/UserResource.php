@@ -22,7 +22,6 @@ class UserResource extends JsonResource
             'address' => $this->address,
             'token' => $this->token,
             'role' => optional($this->roles->first())->name,
-            'position' => optional($this->roles->first())->position,
         ];
     }
 }
