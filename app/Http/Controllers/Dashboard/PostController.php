@@ -70,7 +70,7 @@ class PostController extends BaseController
             'user_id' => $user,
             'type' => $postType
         ]);
-        dd($post->type);
+
         return $this->sendResponse($post, 'product Created Successfully', 201);
     }
     public function show(string $id)
