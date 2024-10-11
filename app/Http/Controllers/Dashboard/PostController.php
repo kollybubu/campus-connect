@@ -122,5 +122,15 @@ class PostController extends BaseController
         $post = PostResource::collection($post);
         return $this->sendResponse($post, "Post Retrieved Successfully", 200);
     }
+    public function postBytype(Request $request)
+    {
+        $posts = Post::where('user_id', Auth::user()->id)
+        ->where('type', 'event')
+        ->get();
+
+        $posts = PostResource::collection($posts);
+
+        return $this->sendResponse($posts, "Event Posts Retrieved Successfully", 200);
+    }
     
 }

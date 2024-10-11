@@ -98,6 +98,8 @@ Route::group(['middleware' => 'auth:sanctum'], function (){
     Route::post('/posts/{id}/update', [PostController::class, 'update'])->name('posts.update');
     Route::get('/posts/{id}/show', [PostController::class, 'show']);
     Route::get('/user-posts', [PostController::class, 'postByUserId']);
+    Route::get('/event-posts', [PostController::class, 'postBytype']);
+
 
 
 
