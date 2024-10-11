@@ -19,7 +19,7 @@ class UserSeeder extends Seeder
             'password' => 'password',
             'phone' => '09796937456',
             'address' => 'Bahan',
-        ]);
+            ]);
 
         $user->assignRole('admin');
     }

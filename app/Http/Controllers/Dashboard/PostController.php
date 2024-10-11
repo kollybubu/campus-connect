@@ -6,11 +6,14 @@ use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\PostResource;
 use App\Models\Post;
+use App\Models\User;
 use App\Repositories\Post\PostRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use PhpParser\Node\NullableType;
+use Spatie\Permission\Models\Role;
 
 class PostController extends BaseController
 {
@@ -34,7 +37,7 @@ class PostController extends BaseController
             'content' => 'required|string',
             'image' => 'required|image',
             'category_id' => 'nullable|integer',
-            'user_id' => 'required',
+            'type' => 'string',
         ]);
             if ($validator->fails()){
                 return $this->sendError('validation Error', $validator->errors(), 422);
@@ -44,15 +47,30 @@ class PostController extends BaseController
             $imageName= time() . '.' . $request->image->extension();
             $request->image->move(public_path('PostImage'), $imageName);
         }
+        $user = Auth::user()->id;
+
+            $role = DB::table('model_has_roles')
+                ->join('roles', 'model_has_roles.role_id', '=', 'roles.id')
+                ->where('model_has_roles.model_id', $user)
+                ->where('model_has_roles.model_type', 'App\\Models\\User') 
+                ->select('roles.name') 
+                ->first();
+
+            if ($role && $role->name === 'admin') {
+                $postType = $request->type === 'event' ? 'event' : 'normal';
+            } else {
+                $postType = 'normal';
+            }
 
         $post = Post::create([
             'title' => $request->title,
             'content' => $request->content,
             'image' => $imageName,
-            'category_id' => $request->user_id != 1 ? 2 : $request->category_id,  
-            'user_id' => $request->user_id,
+            'category_id' => $request->category_id,
+            'user_id' => $user,
+            'type' => $postType
         ]);
-
+        dd($post->type);
         return $this->sendResponse($post, 'product Created Successfully', 201);
     }
     public function show(string $id)
@@ -101,13 +119,8 @@ class PostController extends BaseController
     {
         $post = Post::where('user_id', Auth::user()->id)->get();
 
+        $post = PostResource::collection($post);
         return $this->sendResponse($post, "Post Retrieved Successfully", 200);
-    }
-    public function postByCategoryId()
-    {
-
-        $posts = Post::where('category_id', 3)->get();
-        return $this->sendResponse($posts, 'Posts retrieved successfully.');
     }
     
 }

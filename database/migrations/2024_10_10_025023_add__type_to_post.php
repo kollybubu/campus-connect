@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('roles', function (Blueprint $table) {
-            $table->string('position')->after('name')->nullable();
+        Schema::table('posts', function (Blueprint $table) {
+            $table->string('type')->after('content')->nullable();
         });
     }
 
@@ -21,7 +21,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('roles', function (Blueprint $table) {
+        Schema::table('post', function (Blueprint $table) {
             //
         });
     }

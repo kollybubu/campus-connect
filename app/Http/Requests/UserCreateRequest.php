@@ -24,18 +24,13 @@ class UserCreateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'min:2'],
-            'email' => ['required', 'email'],
-            'password' => ['required', 'string'],
-            'phone' => ['required', 'string', 'digits_between:9,11'],
-            'address' => ['required', 'string'],
-            'image' => ['nullable', 'string'],
-            // 'role_id' => [
-            //     'required', 
-            //     Rule::exists('roles', 'id')->where(function ($query) {
-            //         $query->where('name', '!=', 'admin');
-            //     })  
-            // ]
+            'name' => 'required|string',
+            'email' => 'required|email',
+            'password' => 'required|string',
+            'phone' => 'required|string|digits_between:9,11',
+            'address' => 'required|string',
+            'image' => 'nullable|string',
+            'role_id' => 'required'
         ];
     }
 }

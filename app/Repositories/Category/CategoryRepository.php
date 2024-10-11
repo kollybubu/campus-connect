@@ -15,7 +15,6 @@ class CategoryRepository implements CategoryRepositoryInterface
     {
         return Category::create([
             'name' => $request->name,
-            'description' => $request->description,
         ]);
     }
     public function update(array $data, string $id)

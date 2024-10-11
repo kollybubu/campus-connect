@@ -24,9 +24,6 @@ use App\Http\Controllers\Faculty\ProjectController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
 Route::get('/event', [PostController::class, 'postByCategoryId']);
 Route::post('/login', [AuthController::class, 'login'])->name('auth.login');
 
@@ -34,8 +31,7 @@ Route::post('/login', [AuthController::class, 'login'])->name('auth.login');
 
     // User Crud
     Route::prefix('users')->name('users.')->group(function() {
-        Route::post('/register', [UserController::class, 'store']);
-        Route::post('/update', [UserController::class, 'update']);
+        
     });
 
     // Teacher ru
@@ -51,7 +47,7 @@ Route::post('/login', [AuthController::class, 'login'])->name('auth.login');
     // Category Crud
     Route::prefix('categories')->name('categories.')->group(function() {
         Route::get('/', [CategoryController::class, 'index']);
-        Route::post('/', [CategoryController::class, 'store']);
+
     });
 
     // Post Crud
@@ -83,6 +79,19 @@ Route::prefix('faculties')->name('faculties.')->group(function() {
 
 
 Route::group(['middleware' => 'auth:sanctum'], function (){
+    Route::post('/register', [UserController::class, 'store']);
+    Route::post('user/{id}/update', [UserController::class, 'update']);
+    Route::get('/user/{id}/show', [UserController::class, 'show']);
+    Route::get('/user', [UserController::class, 'index']);
+
+
+    Route::post('/category', [CategoryController::class, 'store']);
+    Route::post('/category/{id}/update', [CategoryController::class, 'update']);
+    Route::get('/category/{id}/show', [CategoryController::class, 'show']);
+    Route::delete('/category/{id}/destory', [CategoryController::class, 'destory']);
+
+
+
     Route::get('/posts', [PostController::class, 'index']);
     Route::post('/posts', [PostController::class, 'store']);
     Route::delete('/posts/{id}/destory', [PostController::class, 'destory'])->name('posts.destroy');
