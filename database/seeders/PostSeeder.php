@@ -26,7 +26,7 @@ class PostSeeder extends Seeder
                 'title' => 'Online Learning Trends in 2024',
                 'content' => 'This article discusses emerging trends in online education, including virtual classrooms, gamified learning, and interactive platforms.',
                 'Type' => 'article',
-                'image' => 'Online_Learning.png',
+                'image' => 'webpnet_resizeimage_30_52035b_5e4ff10867.jpg',
                 'category_id' => 1, // Education
                 'user_id' => 3, // User is not Admin, so category_id cannot be 3
             ],

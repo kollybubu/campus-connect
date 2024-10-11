@@ -125,7 +125,8 @@ class PostController extends BaseController
     }
     public function postBytype(Request $request)
     {
-        $posts = Post::where('type', 'event');
+        $posts = Post::where('type', 'event')->get();
+
 
 
         $posts = PostResource::collection($posts);
