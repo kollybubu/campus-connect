@@ -27,9 +27,9 @@ class UserController extends BaseController
         $user = UserResource::collection($user);
         return $this->sendResponse($user, 'user Retrived Successfully!');
     }
-    public function show()
+    public function show($id)
     {
-        $user = $this->userRepository->show();
+        $user = $this->userRepository->show($id);
         $user = UserResource::collection($user);
         return $this->sendResponse($user, 'user Retrived Successfully!');
     }
