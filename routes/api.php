@@ -27,6 +27,8 @@ use App\Http\Controllers\Faculty\ProjectController;
 Route::get('/event', [PostController::class, 'postByCategoryId']);
 Route::post('/login', [AuthController::class, 'login'])->name('auth.login');
 
+
+
 // For Admin
     Route::get('/event-posts', [PostController::class, 'postBytype']);
     // User Crud
@@ -35,9 +37,9 @@ Route::post('/login', [AuthController::class, 'login'])->name('auth.login');
     });
 
     // Teacher ru
-    Route::prefix('teachers')->name('teachers.')->group(function() {
-        Route::get('/', [TeacherController::class, 'index']);
-    });
+  
+        Route::get('/teachers', [TeacherController::class, 'listTeachers']);
+
 
     // Student ru
     Route::prefix('students')->name('students.')->group(function() {
@@ -83,6 +85,7 @@ Route::group(['middleware' => 'auth:sanctum'], function (){
     Route::post('user/{id}/update', [UserController::class, 'update']);
     Route::get('/user/{id}/show', [UserController::class, 'show']);
     Route::get('/user', [UserController::class, 'index']);
+
 
 
     Route::post('/category', [CategoryController::class, 'store']);
