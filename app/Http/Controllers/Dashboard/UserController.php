@@ -9,6 +9,7 @@ use App\Http\Resources\UserResource;
 use App\Models\User;
 use App\Repositories\User\UserRepositoryInterface;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Spatie\Permission\Models\Role;
 
@@ -49,29 +50,25 @@ class UserController extends BaseController
 
     public function update(UserCreateRequest $request, string $id)
     {
-        // dd($request->role_id);
-        // Validation
-        // $validator = Validator::make($request->all(), []);
-
-        // if ($validator->fails()) {
-        //     return $this->sendError('Validation Error', $validator->errors());
-        // }
-
-        $data = $request->validated();
-
         $User = User::find($id);
         if (!$User) {
             return $this->sendError("User not Found!", null, 404);
         }
 
-        if ($request->role_id) {
-            $role = Role::find($request->role_id);
-            // dd($role);
-            $User->syncRoles([$role->name]);
-        }
 
+
+        $User = User::whereHas('roles', function($q){
+            $q->where('id');
+        });
+    
+        // Check if the update was successful
+        if ($User) {
+            return $this->sendResponse([], "User role updated successfully", 200);
+        } else {
+            return $this->sendError("Failed to update user role", 500);
+        }
         $User->update($data);
 
-        return $this->sendResponse($User, 'User Updated Successfully', 200);
+        return $this->sendResponse($request, 'User Updated Successfully', 200);
     }
 }
