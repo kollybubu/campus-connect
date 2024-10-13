@@ -50,7 +50,12 @@ class UserController extends BaseController
     public function update(Request $request, string $id)
     {
         $user = User::where('id',$id)->first();
-        $role = Role::findOrFail($request->role_id);
+        if ($request->role){
+            $role = Role::findOrFail($request->role_id);
+            $user->syncRoles($role->name);
+        }
+       
+
         $user->update([
             'name' => $request->name,
             'email' => $request->email,
