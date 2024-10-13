@@ -49,24 +49,16 @@ class UserController extends BaseController
     }
     public function update(Request $request, string $id)
     {
-        $User = User::find($id);
-        if (!$User) {
-            return $this->sendError("User not Found!", null, 404);
-        }
-    
-        if ($User->hasRole($request->role_id)) {  
-            $data = $request->all();  
-            
-            if (!empty($data['password'])) {
-                $data['password'] = bcrypt($data['password']);
-            }
-            
-            $User->update($data);
-    
-            return $this->sendResponse([], "User Updated Successfully", 200);
-        } else {
-            return $this->sendError("User does not have the required role", 403);
-        }
+        $user = User::where('id',$id)->first();
+        $role = Role::findOrFail($request->role_id);
+        $user->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'address' => $request->address,
+        ]);
+        $user->syncRoles($role->name);
+        return $this->sendResponse($user, 'user updated successfully', 200);
     }
     
     
