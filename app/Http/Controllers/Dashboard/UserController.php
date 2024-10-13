@@ -48,27 +48,31 @@ class UserController extends BaseController
         return $this->sendResponse($user, 'product Created Successfully', 200);
     }
 
-    public function update(UserCreateRequest $request, string $id)
+    public function update(Request $request, string $id)
     {
         $User = User::find($id);
         if (!$User) {
             return $this->sendError("User not Found!", null, 404);
         }
-
-
-
-        $User = User::whereHas('roles', function($q){
-            $q->where('id');
-        });
     
-        // Check if the update was successful
-        if ($User) {
-            return $this->sendResponse([], "User role updated successfully", 200);
+        $hasRole = $User->roles()->whereHas('roles', function($query) use ($request) {
+            $query->where('id', $request->role_id); 
+        })->exists();
+    
+        if ($hasRole) {
+            $data = $request->validated(); 
+            
+            if (!empty($data['password'])) {
+                $data['password'] = bcrypt($data['password']);
+            }
+            
+           
+            $User->update($data);
+    
+            return $this->sendResponse([], "User Updated Successfully", 200);
         } else {
-            return $this->sendError("Failed to update user role", 500);
+            return $this->sendError("User does not have the required role", 403);
         }
-        $User->update($data);
-
-        return $this->sendResponse($request, 'User Updated Successfully', 200);
     }
+    
 }

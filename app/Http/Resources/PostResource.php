@@ -25,7 +25,9 @@ class PostResource extends JsonResource
             'date' => $this->created_at->diffForHumans(),
             'comments' => $this->comments->map(function($comment) {
                 return [
+                    'id' => $comment->id,
                     'comment' => $comment->comment,
+                    'commentCreateId' => $comment->user_id,
                     'created_by' => $comment->user->name,
                     'created_at' => $comment->created_at->diffForHumans()
                 ];
