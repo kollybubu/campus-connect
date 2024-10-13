@@ -9,9 +9,8 @@ class PostRepository implements PostRepositoryInterface
     public function index()
     {
     
-        $posts = Post::with('category')->get();
-
-      
+        $posts = Post::with('category')->latest()->get();
         return $posts;
+        
     }
 }
