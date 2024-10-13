@@ -9,7 +9,7 @@ use App\Repositories\User\UserRepositoryInterface;
 class UserRepository implements UserRepositoryInterface {
     public function index()
     {
-        $users = User::with('roles')->get();
+        $users = User::with('roles')->latest()->get();
         return $users;
         
     }

@@ -47,7 +47,6 @@ class UserController extends BaseController
 
         return $this->sendResponse($user, 'product Created Successfully', 200);
     }
-
     public function update(Request $request, string $id)
     {
         $User = User::find($id);
@@ -55,18 +54,13 @@ class UserController extends BaseController
             return $this->sendError("User not Found!", null, 404);
         }
     
-        $hasRole = $User->roles()->whereHas('roles', function($query) use ($request) {
-            $query->where('id', $request->role_id); 
-        })->exists();
-    
-        if ($hasRole) {
-            $data = $request->validated(); 
+        if ($User->hasRole($request->role_id)) {  
+            $data = $request->all();  
             
             if (!empty($data['password'])) {
                 $data['password'] = bcrypt($data['password']);
             }
             
-           
             $User->update($data);
     
             return $this->sendResponse([], "User Updated Successfully", 200);
@@ -74,5 +68,6 @@ class UserController extends BaseController
             return $this->sendError("User does not have the required role", 403);
         }
     }
+    
     
 }
