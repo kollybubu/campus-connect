@@ -48,7 +48,6 @@ class PostController extends BaseController
             $request->image->move(public_path('PostImage'), $imageName);
         }
         $user = Auth::user()->id;
-        dd(Auth::user()->roles);
 
             $role = DB::table('model_has_roles')
                 ->join('roles', 'model_has_roles.role_id', '=', 'roles.id')
